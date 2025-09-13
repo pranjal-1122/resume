@@ -109,7 +109,7 @@
             </div>
         </section>
         
-        <section class="py-16 grid md:grid-cols-2 gap-12 items-center">
+        <section class="py-16 grid md:grid-cols-1 gap-12 items-center">
             <div class="p-8 rounded-2xl text-center noir-box">
                 <h3 class="text-2xl font-bold mb-4 text-[#E0E0E0] font-spectral">Key Achievements</h3>
                 <p class="text-[#B0B0B0] mb-4">Grew a YouTube channel to:</p>
@@ -118,13 +118,6 @@
                 <p class="text-[#B0B0B0] mt-4 mb-4">Led the growth and management of a Web3 community to:</p>
                 <div id="member-count" class="text-7xl font-bold text-[#E0E0E0] font-spectral" data-target="25000">0</div>
                 <p class="text-[#B0B0B0] mt-2">Members</p>
-            </div>
-            <div class="p-8 rounded-2xl noir-box">
-                <h3 class="text-2xl font-bold mb-6 text-center text-[#E0E0E0] font-spectral">Case Summary</h3>
-                <p class="text-center text-[#B0B0B0] mb-4">This chart provides a summary of my professional experience, categorized by industry. You can explore detailed roles in the interactive timeline below.</p>
-                <div class="chart-container">
-                    <canvas id="experienceChart"></canvas>
-                </div>
             </div>
         </section>
 
@@ -235,6 +228,17 @@
                         "I assist users during testnet phases, handle support with clarity, and actively drive strategic collaborations and cross-community partnerships.",
                         "Working closely with the core team, I help shape engagement strategies and foster an inclusive, high-energy space that keeps members informed and involved."
                     ]
+                },
+                {
+                    role: "Community Manager",
+                    company: "Xweave",
+                    type: "crypto",
+                    period: "",
+                    details: [
+                        "Managing community and maintaining decorum of the community.",
+                        "Contributed to building a positive and supportive environment for all members.",
+                        "Assisted in the onboarding of new members and addressed user inquiries."
+                    ]
                 }
             ];
 
@@ -337,75 +341,7 @@
             observer.observe(subscriberCountElement);
             observer.observe(memberCountElement);
 
-            let experienceChart;
             
-            const ctx = document.getElementById('experienceChart').getContext('2d');
-            const youtubeCount = experienceData.filter(e => e.type === 'youtube').length;
-            const cryptoCount = experienceData.filter(e => e.type === 'crypto').length;
-            experienceChart = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: ['YouTube Community', 'Crypto Projects'],
-                    datasets: [{
-                        label: 'Number of Roles',
-                        data: [youtubeCount, cryptoCount],
-                        backgroundColor: [
-                            'rgba(176, 176, 176, 0.7)',
-                            'rgba(224, 224, 224, 0.7)'
-                        ],
-                        borderColor: [
-                            '#B0B0B0',
-                            '#E0E0E0'
-                        ],
-                        borderWidth: 2,
-                        barPercentage: 0.7
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            ticks: {
-                                stepSize: 1,
-                                color: '#E0E0E0'
-                            },
-                            grid: {
-                                color: 'rgba(255, 255, 255, 0.1)'
-                            }
-                        },
-                        x: {
-                            ticks: {
-                                color: '#E0E0E0'
-                            },
-                            grid: {
-                                color: 'rgba(255, 255, 255, 0.1)'
-                            }
-                        }
-                    },
-                    plugins: {
-                        legend: {
-                            display: false
-                        },
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    let label = context.dataset.label || '';
-                                    if (label) {
-                                        label += ': ';
-                                    }
-                                    if (context.parsed.y !== null) {
-                                        label += context.parsed.y;
-                                    }
-                                    return label;
-                                }
-                            }
-                        }
-                    }
-                }
-            });
-
             // Rain Animation
             const bgCanvas = document.getElementById('animated-bg-canvas');
             const bgCtx = bgCanvas.getContext('2d');
@@ -430,7 +366,7 @@
             function animateDrops() {
                 bgCtx.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
                 bgCtx.fillStyle = '#121212';
-                bgCtx.fillRect(0, 0, bgCanvas.width, bgCanvas.height);
+                bgCtx.fillRect(0, 0, bgCanvas.width, bgCtx.height);
 
                 drops.forEach(d => {
                     bgCtx.beginPath();
