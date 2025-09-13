@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pranjal Gajaya - Interactive Resume</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Spectral:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #E0E0E0;
+            background-color: #121212;
+            overflow-x: hidden;
+        }
+        .font-spectral {
+            font-family: 'Spectral', serif;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        .noir-box {
+            position: relative;
+            z-index: 2;
+            background-color: rgba(34, 34, 34, 0.7);
+            border: 1px solid #444444;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.8), 0 0 10px rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+        .noir-box:hover {
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.9), 0 0 15px rgba(255, 255, 255, 0.2);
+        }
+        #animated-bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 1;
+        }
+        .button-noir {
+            border: 1px solid #E0E0E0;
+            box-shadow: 2px 2px 0px #444444;
+            transition: all 0.2s ease;
+        }
+        .button-noir:hover {
+            box-shadow: 4px 4px 0px #444444;
+            transform: translate(-2px, -2px);
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+    </style>
+</head>
+<body class="text-[#E0E0E0] bg-[#121212]">
+
+    <canvas id="animated-bg-canvas"></canvas>
+
+    <header class="bg-[#121212] sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <div class="text-3xl font-bold text-[#E0E0E0] font-spectral">
+                PG
+            </div>
+            <div class="hidden md:flex space-x-6 items-center">
+                <a href="#profile" class="text-[#E0E0E0] hover:text-[#B0B0B0] transition duration-300 font-spectral text-xl">My Case</a>
+                <a href="#skills" class="text-[#E0E0E0] hover:text-[#B0B0B0] transition duration-300 font-spectral text-xl">The Tools</a>
+                <a href="#experience" class="text-[#E0E0E0] hover:text-[#B0B0B0] transition duration-300 font-spectral text-xl">The Timeline</a>
+                <a href="#contact" class="bg-transparent text-[#E0E0E0] px-4 py-2 button-noir rounded-sm hover:bg-white/10 transition duration-300 font-spectral text-xl">Contact</a>
+            </div>
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="text-[#E0E0E0] focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+        </nav>
+        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
+            <a href="#profile" class="block py-2 text-[#E0E0E0] hover:text-[#B0B0B0] font-spectral text-xl">My Case</a>
+            <a href="#skills" class="block py-2 text-[#E0E0E0] hover:text-[#B0B0B0] font-spectral text-xl">The Tools</a>
+            <a href="#experience" class="block py-2 text-[#E0E0E0] hover:text-[#B0B0B0] font-spectral text-xl">The Timeline</a>
+            <a href="#contact" class="block mt-2 text-center bg-transparent text-[#E0E0E0] px-4 py-2 button-noir rounded-sm hover:bg-white/10 font-spectral text-xl">Contact</a>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6 py-12 relative z-20">
+
+        <section id="hero" class="text-center py-20">
+            <h1 class="text-6xl md:text-8xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-gray-200 to-gray-400 pb-2 font-spectral">Pranjal Gajaya</h1>
+            <p class="text-xl md:text-2xl text-[#E0E0E0] mt-4 font-spectral">Community Manager</p>
+        </section>
+
+        <section id="profile" class="py-16">
+             <div class="max-w-4xl mx-auto p-8 rounded-2xl noir-box">
+                <h2 class="text-3xl font-bold text-center mb-6 text-[#E0E0E0] font-spectral">My Dossier</h2>
+                <p class="text-lg text-[#B0B0B0] leading-relaxed text-center">
+                    Experienced Community Manager with 2+ years of managing and growing Web3 communities. Skilled in conflict resolution, structured moderation, and user support. I bring strong communication, adaptability, and a proactive mindset to every challenge. My background in community management helps me create safe, engaging spaces where users feel heard and supported. I'm driven to contribute to thriving, well-organized servers with professionalism and impact.
+                </p>
+            </div>
+        </section>
+        
+        <section class="py-16 grid md:grid-cols-2 gap-12 items-center">
+            <div class="p-8 rounded-2xl text-center noir-box">
+                <h3 class="text-2xl font-bold mb-4 text-[#E0E0E0] font-spectral">Key Achievements</h3>
+                <p class="text-[#B0B0B0] mb-4">Grew a YouTube channel to:</p>
+                <div id="subscriber-count" class="text-7xl font-bold text-[#E0E0E0] font-spectral" data-target="4000">0</div>
+                <p class="text-[#B0B0B0] mt-2">Subscribers</p>
+                <p class="text-[#B0B0B0] mt-4 mb-4">Led the growth and management of a Web3 community to:</p>
+                <div id="member-count" class="text-7xl font-bold text-[#E0E0E0] font-spectral" data-target="25000">0</div>
+                <p class="text-[#B0B0B0] mt-2">Members</p>
+            </div>
+            <div class="p-8 rounded-2xl noir-box">
+                <h3 class="text-2xl font-bold mb-6 text-center text-[#E0E0E0] font-spectral">Case Summary</h3>
+                <p class="text-center text-[#B0B0B0] mb-4">This chart provides a summary of my professional experience, categorized by industry. You can explore detailed roles in the interactive timeline below.</p>
+                <div class="chart-container">
+                    <canvas id="experienceChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" class="py-16">
+            <h2 class="text-3xl font-bold text-center mb-12 text-[#E0E0E0] font-spectral">Skills</h2>
+            <p class="text-center max-w-3xl mx-auto text-[#B0B0B0] mb-12">I possess a versatile skill set focused on community building, strategic planning, and creative problem-solving. These competencies allow me to effectively manage online spaces and drive brand growth.</p>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <div class="skill-card p-6 rounded-xl shadow-md text-center transition-all duration-300 noir-box">
+                    <div class="text-4xl text-[#B0B0B0] mb-3">🤝</div>
+                    <h3 class="font-semibold text-[#E0E0E0]">Proficiency in Community Moderation</h3>
+                </div>
+                <div class="skill-card p-6 rounded-xl shadow-md text-center transition-all duration-300 noir-box">
+                    <div class="text-4xl text-[#B0B0B0] mb-3">🪙</div>
+                    <h3 class="font-semibold text-[#E0E0E0]">Web3 & Crypto Knowledge</h3>
+                </div>
+                <div class="skill-card p-6 rounded-xl shadow-md text-center transition-all duration-300 noir-box">
+                    <div class="text-4xl text-[#B0B0B0] mb-3">🎨</div>
+                    <h3 class="font-semibold text-[#E0E0E0]">Brand Development</h3>
+                </div>
+                <div class="skill-card p-6 rounded-xl shadow-md text-center transition-all duration-300 noir-box">
+                    <div class="text-4xl text-[#B0B0B0] mb-3">🔄</div>
+                    <h3 class="font-semibold text-[#E0E0E0]">Adaptability to Change</h3>
+                </div>
+                <div class="skill-card p-6 rounded-xl shadow-md text-center transition-all duration-300 noir-box">
+                    <div class="text-4xl text-[#B0B0B0] mb-3">💡</div>
+                    <h3 class="font-semibold text-[#E0E0E0]">Planning</h3>
+                </div>
+                <div class="skill-card p-6 rounded-xl shadow-md text-center transition-all duration-300 noir-box">
+                    <div class="text-4xl text-[#B0B0B0] mb-3">🗣️</div>
+                    <h3 class="font-semibold text-[#E0E0E0]">Negotiation</h3>
+                </div>
+                <div class="skill-card p-6 rounded-xl shadow-md text-center transition-all duration-300 noir-box">
+                    <div class="text-4xl text-[#B0B0B0] mb-3">⏱️</div>
+                    <h3 class="font-semibold text-[#E0E0E0]">Time Management</h3>
+                </div>
+            </div>
+        </section>
+        
+        <section id="languages" class="py-16">
+            <h2 class="text-3xl font-bold text-center mb-6 text-[#E0E0E0] font-spectral">Communication</h2>
+            <div class="max-w-lg mx-auto p-8 rounded-2xl text-center noir-box">
+                <p class="text-lg font-medium text-[#B0B0B0] mb-2">English: <span class="text-lg text-[#E0E0E0]">Fluent</span></p>
+                <p class="text-lg font-medium text-[#B0B0B0]">Hindi: <span class="text-lg text-[#E0E0E0]">Fluent</span></p>
+            </div>
+        </section>
+
+        <section id="experience" class="py-16">
+            <h2 class="text-3xl font-bold text-center mb-4 text-[#E0E0E0] font-spectral">The Timeline</h2>
+            <p class="text-center max-w-3xl mx-auto text-[#B0B0B0] mb-12">Here is an interactive timeline of my work experience. You can filter by category to view roles relevant to your interests. Click on any role to see more details about my responsibilities and achievements.</p>
+            <div class="flex justify-center space-x-4 mb-12">
+                <button class="filter-btn bg-[#E0E0E0] text-[#121212] px-5 py-2 rounded-sm button-noir transition duration-300 font-spectral text-xl" data-filter="all">All</button>
+                <button class="filter-btn bg-transparent text-[#E0E0E0] px-5 py-2 rounded-sm hover:bg-white/10 transition duration-300 border-2 border-[#E0E0E0] font-spectral text-xl" data-filter="youtube">YouTube</button>
+                <button class="filter-btn bg-transparent text-[#E0E0E0] px-5 py-2 rounded-sm hover:bg-white/10 transition duration-300 border-2 border-[#E0E0E0] font-spectral text-xl" data-filter="crypto">Crypto</button>
+            </div>
+            <div id="timeline-container" class="relative max-w-3xl mx-auto">
+            </div>
+        </section>
+
+        <section id="contact" class="py-16 text-center p-8 rounded-2xl noir-box">
+            <h2 class="text-3xl font-bold mb-4 text-[#E0E0E0] font-spectral">Get the Facts</h2>
+            <p class="text-[#B0B0B0] mb-8 max-w-xl mx-auto">I'm always open to discussing new projects, creative ideas, or opportunities to be part of an ambitious vision. Feel free to reach out.</p>
+            <div class="flex flex-wrap justify-center items-center gap-6">
+                <a href="mailto:gajayapranjal@gmail.com" class="text-lg text-[#B0B0B0] hover:underline">gajayapranjal@gmail.com</a>
+                <span class="hidden md:block text-[#E0E0E0]">|</span>
+                <p class="text-lg text-[#E0E0E0]">+91 8840813728</p>
+                <span class="hidden md:block text-[#E0E0E0]">|</span>
+                <p class="text-lg text-[#E0E0E0]">Delhi, India</p>
+            </div>
+            <div class="flex justify-center flex-wrap space-x-6 mt-8 text-xl font-semibold">
+                <a href="https://t.me/pranjal_1122" target="_blank" class="text-[#E0E0E0] hover:text-[#B0B0B0] transition duration-300">
+                    Telegram: @pranjal_1122
+                </a>
+            </div>
+        </section>
+    </main>
+    <footer class="text-center py-6 text-[#444444]">
+        <p>&copy; 2025 Pranjal Gajaya. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+            
+            const experienceData = [
+                {
+                    role: "Mod & Manager",
+                    company: "YOUTUBE & TG (BABA CRYPTONATH)",
+                    type: "youtube",
+                    period: "2023-2024",
+                    details: [
+                        "For a year, I played a key role in growing the 'Baba Cryptonath YouTube channel from zero to 4,000 subscribers.",
+                        "I managed the Telegram community as a Mod, provided real-time support, ensured rules were followed, and contributed to content creation by researching, scripting, editing, and boosting engagement.",
+                        "I was there from the start, helping build and strengthen the community."
+                    ]
+                },
+                {
+                    role: "Community Manager",
+                    company: "MULTIPLE NETWORK",
+                    type: "crypto",
+                    period: "Present",
+                    details: [
+                        "Promoted for leading the growth and management of a 25K+ member Web3 community.",
+                        "I oversee Discord operations from bot setup and role systems to safety enforcement and community structure.",
+                        "I assist users during testnet phases, handle support with clarity, and actively drive strategic collaborations and cross-community partnerships.",
+                        "Working closely with the core team, I help shape engagement strategies and foster an inclusive, high-energy space that keeps members informed and involved."
+                    ]
+                }
+            ];
+
+            const timelineContainer = document.getElementById('timeline-container');
+            const filterBtns = document.querySelectorAll('.filter-btn');
+
+            const createTimelineItem = (item) => {
+                const detailsHtml = item.details.map(d => `<li class="text-[#E0E0E0]">${d}</li>`).join('');
+                const itemEl = document.createElement('div');
+                itemEl.className = 'timeline-item mb-8 flex justify-between items-center w-full';
+                itemEl.innerHTML = `
+                    <div class="order-1 w-5/12"></div>
+                    <div class="z-20 flex items-center order-1 bg-[#E0E0E0] shadow-xl w-8 h-8 rounded-full border-2 border-[#B0B0B0]">
+                        <h1 class="mx-auto font-semibold text-lg text-[#121212]"></h1>
+                    </div>
+                    <div class="order-1 bg-transparent rounded-2xl shadow-xl w-5/12 px-6 py-4 cursor-pointer timeline-card noir-box">
+                        <h3 class="font-bold text-[#E0E0E0] text-lg">${item.role}</h3>
+                        <p class="text-sm font-medium text-[#B0B0B0]">${item.company} <span class="font-normal text-[#B0B0B0]">| ${item.period}</span></p>
+                        <div class="timeline-details hidden mt-3">
+                            <ul class="list-disc list-inside space-y-1">
+                                ${detailsHtml}
+                            </ul>
+                        </div>
+                    </div>
+                `;
+                return itemEl;
+            };
+
+            const renderTimeline = (filter) => {
+                timelineContainer.innerHTML = '<div class="absolute border-l-2 border-[#B0B0B0] h-full left-1/2 -translate-x-1/2"></div>';
+                const filteredData = filter === 'all' ? experienceData : experienceData.filter(item => item.type === filter);
+
+                filteredData.forEach((item, index) => {
+                    const timelineItem = createTimelineItem(item);
+                    if (index % 2 !== 0) {
+                        timelineItem.classList.add('flex-row-reverse');
+                    }
+                    timelineContainer.appendChild(timelineItem);
+                });
+                
+                document.querySelectorAll('.timeline-card').forEach(card => {
+                    card.addEventListener('click', () => {
+                        card.querySelector('.timeline-details').classList.toggle('hidden');
+                    });
+                });
+            };
+
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    filterBtns.forEach(b => {
+                        b.classList.remove('bg-[#E0E0E0]', 'text-[#121212]');
+                        b.classList.add('bg-transparent', 'text-[#E0E0E0]');
+                        b.classList.remove('button-noir');
+                        b.classList.add('border-2');
+                    });
+                    btn.classList.add('bg-[#E0E0E0]', 'text-[#121212]', 'button-noir');
+                    btn.classList.remove('bg-transparent', 'border-2');
+                    renderTimeline(btn.dataset.filter);
+                });
+            });
+
+            renderTimeline('all');
+
+            const countUp = (el) => {
+                const target = +el.dataset.target;
+                const duration = 2000;
+                const frameRate = 1000 / 60;
+                const totalFrames = Math.round(duration / frameRate);
+                let frame = 0;
+                
+                const counter = setInterval(() => {
+                    frame++;
+                    const progress = frame / totalFrames;
+                    const current = Math.round(target * progress);
+                    el.textContent = current.toLocaleString() + '+';
+
+                    if (frame === totalFrames) {
+                        clearInterval(counter);
+                        el.textContent = target.toLocaleString() + '+';
+                    }
+                }, frameRate);
+            };
+
+            const subscriberCountElement = document.getElementById('subscriber-count');
+            const memberCountElement = document.getElementById('member-count');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        if (entry.target.id === 'subscriber-count') {
+                            countUp(subscriberCountElement);
+                        } else if (entry.target.id === 'member-count') {
+                            countUp(memberCountElement);
+                        }
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            observer.observe(subscriberCountElement);
+            observer.observe(memberCountElement);
+
+            let experienceChart;
+            
+            const ctx = document.getElementById('experienceChart').getContext('2d');
+            const youtubeCount = experienceData.filter(e => e.type === 'youtube').length;
+            const cryptoCount = experienceData.filter(e => e.type === 'crypto').length;
+            experienceChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['YouTube Community', 'Crypto Projects'],
+                    datasets: [{
+                        label: 'Number of Roles',
+                        data: [youtubeCount, cryptoCount],
+                        backgroundColor: [
+                            'rgba(176, 176, 176, 0.7)',
+                            'rgba(224, 224, 224, 0.7)'
+                        ],
+                        borderColor: [
+                            '#B0B0B0',
+                            '#E0E0E0'
+                        ],
+                        borderWidth: 2,
+                        barPercentage: 0.7
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                stepSize: 1,
+                                color: '#E0E0E0'
+                            },
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            }
+                        },
+                        x: {
+                            ticks: {
+                                color: '#E0E0E0'
+                            },
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed.y !== null) {
+                                        label += context.parsed.y;
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Rain Animation
+            const bgCanvas = document.getElementById('animated-bg-canvas');
+            const bgCtx = bgCanvas.getContext('2d');
+            let drops = [];
+            const dropCount = 150;
+
+            function Drop() {
+                this.x = Math.random() * bgCanvas.width;
+                this.y = Math.random() * bgCanvas.height;
+                this.length = Math.random() * 20 + 10;
+                this.speed = Math.random() * 5 + 3;
+                this.color = `rgba(255, 255, 255, ${Math.random() * 0.2 + 0.1})`;
+            }
+
+            function initDrops() {
+                drops = [];
+                for (let i = 0; i < dropCount; i++) {
+                    drops.push(new Drop());
+                }
+            }
+
+            function animateDrops() {
+                bgCtx.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
+                bgCtx.fillStyle = '#121212';
+                bgCtx.fillRect(0, 0, bgCanvas.width, bgCanvas.height);
+
+                drops.forEach(d => {
+                    bgCtx.beginPath();
+                    bgCtx.moveTo(d.x, d.y);
+                    bgCtx.lineTo(d.x, d.y + d.length);
+                    bgCtx.strokeStyle = d.color;
+                    bgCtx.lineWidth = 1;
+                    bgCtx.stroke();
+                    
+                    d.y += d.speed;
+
+                    if (d.y > bgCanvas.height) {
+                        d.y = -d.length;
+                        d.x = Math.random() * bgCanvas.width;
+                    }
+                });
+                
+                requestAnimationFrame(animateDrops);
+            }
+
+            function resizeBackgroundCanvas() {
+                bgCanvas.width = window.innerWidth;
+                bgCanvas.height = window.innerHeight;
+                initDrops();
+            }
+
+            window.addEventListener('resize', resizeBackgroundCanvas);
+            resizeBackgroundCanvas();
+            animateDrops();
+        });
+    </script>
+</body>
+</html>
